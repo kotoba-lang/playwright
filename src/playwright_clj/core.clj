@@ -136,6 +136,12 @@
             (swap! log conj {:type (.type m) :text (.text m)})))))
     log))
 
+(defn set-offline
+  "Toggle the page's browser context offline/online (fires the DOM online/offline
+   events). Use to E2E offline-first sync queues."
+  [^Page page offline?]
+  (.setOffline (.context page) (boolean offline?)))
+
 (defn screenshot
   "Save a full-page PNG to `path`."
   [^Page page path]
