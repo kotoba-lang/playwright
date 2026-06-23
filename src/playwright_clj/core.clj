@@ -115,11 +115,15 @@
 
 (defn wait-for-fn
   "Poll a JS predicate function until it returns truthy (e.g. wait for WASM ready).
-   opts {:timeout ms :polling ms}."
+   opts {:timeout ms :polling ms}. NOTE: the default polling is requestAnimationFrame,
+   which is throttled/paused for backgrounded headless pages — pass a numeric :polling
+   (e.g. 200) when waiting on conditions that change during page idle (timers, Service
+   Worker messages, IndexedDB), or the predicate may never be re-evaluated."
   ([^Page page js] (wait-for-fn page js {}))
-  ([^Page page js {:keys [timeout]}]
+  ([^Page page js {:keys [timeout polling]}]
    (let [o (com.microsoft.playwright.Page$WaitForFunctionOptions.)]
      (when timeout (.setTimeout o (double timeout)))
+     (when polling (.setPollingInterval o (double polling)))
      (.waitForFunction page js nil o))))
 
 ;; ── console / diagnostics ────────────────────────────────────────────────────
