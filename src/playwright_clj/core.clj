@@ -147,13 +147,20 @@
   (.setOffline (.context page) (boolean offline?)))
 
 (defn screenshot
-  "Save a full-page PNG to `path`."
-  [^Page page path]
-  (.screenshot page
-    (doto (com.microsoft.playwright.Page$ScreenshotOptions.)
-      (.setPath (Paths/get path (make-array String 0)))
-      (.setFullPage true)))
-  path)
+  "Save a full-page PNG to `path`. opts {:timeout ms} — Playwright's own default (30000ms)
+   applies when omitted; pass a longer timeout for capture pipelines that may run under
+   real machine load (many concurrent CPU-bound compositor/rasterize passes push a cold
+   full-page screenshot past 30s well before the page itself is actually stuck — this
+   showed up as spurious TimeoutErrors in network-isekai's playtest-coscientist under
+   heavy parallel load, not a hang in the captured page)."
+  ([^Page page path] (screenshot page path {}))
+  ([^Page page path {:keys [timeout]}]
+   (.screenshot page
+     (doto (com.microsoft.playwright.Page$ScreenshotOptions.)
+       (.setPath (Paths/get path (make-array String 0)))
+       (.setFullPage true)
+       (cond-> timeout (.setTimeout (double timeout)))))
+   path))
 
 ;; ── CDP (Chrome DevTools Protocol): WebAuthn virtual authenticator, etc. ─────
 
