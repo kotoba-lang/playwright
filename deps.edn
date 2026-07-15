@@ -2,7 +2,7 @@
  :deps  {org.clojure/clojure              {:mvn/version "1.12.0"}
          babashka/process                 {:mvn/version "0.5.22"}
          cheshire/cheshire                {:mvn/version "5.13.0"}
-         com.microsoft.playwright/playwright {:mvn/version "1.49.0"}}
+         com.microsoft.playwright/playwright {:mvn/version "1.60.0"}}
  :aliases
  {;; Install browser binaries:  clojure -M:install chromium
   :install {:main-opts ["-m" "playwright-clj.install"]}
