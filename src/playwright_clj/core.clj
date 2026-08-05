@@ -24,11 +24,24 @@
 (defn launch
   "Launch a browser. Returns {:pw Playwright :browser Browser}.
    opts: {:browser :chromium|:firefox|:webkit (default :chromium)
+          :channel  String — an installed browser channel (\"chrome\", \"msedge\",
+                    \"chrome-beta\" …) instead of Playwright's bundled build
           :headless bool (default true)
           :slow-mo  ms   (debug pacing, optional)
-          :args     [String] extra browser args (e.g. virtual-authenticator flags)}"
+          :args     [String] extra browser args (e.g. virtual-authenticator flags)}
+
+   `:channel` matters for more than version coverage: **the bundled Chromium and
+   an installed Chrome do not expose the same GPU**. Measured on macOS
+   2026-08-06, over http://127.0.0.1 (WebGPU needs a secure context, so
+   about:blank reports no `navigator.gpu` at all and is useless for this):
+
+     bundled chromium, headless -> SwiftShader, isFallbackAdapter=true
+     channel \"chrome\", headless -> Apple M4, metal-3, isFallbackAdapter=false
+
+   So a gate that demands a physical adapter cannot be satisfied by the bundled
+   build, no matter which GPU flags it passes."
   ([] (launch {}))
-  ([{:keys [browser headless slow-mo args]
+  ([{:keys [browser channel headless slow-mo args]
      :or   {browser :chromium headless true}}]
    (let [pw (Playwright/create)
          ^BrowserType bt (case browser
@@ -37,6 +50,7 @@
                            :webkit   (.webkit pw))
          lo (doto (BrowserType$LaunchOptions.)
               (.setHeadless (boolean headless)))
+         _  (when (and channel (seq (str channel))) (.setChannel lo (str channel)))
          _  (when slow-mo (.setSlowMo lo (double slow-mo)))
          _  (when (seq args) (.setArgs lo (vec args)))
          b  (.launch bt lo)]
