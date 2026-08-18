@@ -7,7 +7,7 @@
    same on macOS dev machines and Linux CI runners — see scripts/pw_eval.cjs); shells to
    scripts/pw_eval.cjs."
   (:require [babashka.process :as p]
-            [cheshire.core :as json]
+            [json.compat :as json]
             [clojure.java.io :as io]
             [clojure.string :as str]))
 
