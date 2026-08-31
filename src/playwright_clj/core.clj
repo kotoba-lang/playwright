@@ -190,6 +190,10 @@
     (boolean? x) (com.google.gson.JsonPrimitive. ^Boolean (boolean x))
     (number? x)  (com.google.gson.JsonPrimitive. ^Number x)
     (nil? x)     com.google.gson.JsonNull/INSTANCE
+    ;; Keywords are how Clojure callers spell CDP enums (:transport :internal).
+    ;; `str` would keep the leading colon and send ":internal", which is not a
+    ;; value the protocol accepts -- keys already use `name`, so values must too.
+    (keyword? x) (com.google.gson.JsonPrimitive. ^String (name x))
     :else        (com.google.gson.JsonPrimitive. (str x))))
 
 (defn- gson->clj [^com.google.gson.JsonElement e]
