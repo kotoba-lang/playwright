@@ -9,7 +9,7 @@
   (:require [babashka.process :as p]
             [json.compat :as json]
             [clojure.java.io :as io]
-            [clojure.string :as str]))
+            [kotoba.lang.text :as str]))
 
 (defn- detect-node-path []
   (or (System/getenv "NODE_PATH")
