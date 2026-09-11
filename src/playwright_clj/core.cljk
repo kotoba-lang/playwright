@@ -10,7 +10,7 @@
        (pw/goto page \"https://example.com\")
        (println (pw/eval-js page \"document.title\")))
 
-   Browsers must be installed once: `clojure -M:install chromium`."
+   Browsers must be installed once: `kbb -M:install chromium`."
   (:import [com.microsoft.playwright Playwright Browser BrowserType BrowserType$LaunchOptions
             BrowserContext Page Page$NavigateOptions ConsoleMessage]
            [com.microsoft.playwright.options WaitForSelectorState]
