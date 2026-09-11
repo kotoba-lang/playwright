@@ -9,12 +9,12 @@
          babashka/process                 {:mvn/version "0.5.22"}
          com.microsoft.playwright/playwright {:mvn/version "1.60.0"}}
  :aliases
- {;; Install browser binaries:  clojure -M:install chromium
+ {;; Install browser binaries:  kbb -M:install chromium
   :install {:main-opts ["-m" "playwright-clj.install"]}
-  ;; Run tests:  clojure -M:test
+  ;; Run tests:  kbb -M:test
   :test {:extra-paths ["test"]
          :main-opts   ["-m" "playwright-clj.smoke-test"]}
-  ;; Run kotoba.playwright compatibility tests: clojure -M:kotoba-test
+  ;; Run kotoba.playwright compatibility tests: kbb -M:kotoba-test
   :kotoba-test {:extra-paths ["test"]
                 :extra-deps {io.github.cognitect-labs/test-runner {:git/tag "v0.5.1" :git/sha "dfb30dd6605cb6c0efc275e1df1736f6e90d4d73"}}
                 :main-opts ["-m" "cognitect.test-runner"]

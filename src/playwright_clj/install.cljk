@@ -1,5 +1,5 @@
 (ns playwright-clj.install
-  "Install Playwright browser binaries: `clojure -M:install [chromium|firefox|webkit]`.
+  "Install Playwright browser binaries: `kbb -M:install [chromium|firefox|webkit]`.
    Delegates to Playwright's bundled CLI (downloads the browsers it manages)."
   (:import [com.microsoft.playwright CLI]))
 

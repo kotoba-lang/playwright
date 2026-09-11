@@ -1,6 +1,6 @@
 (ns playwright-clj.smoke-test
   "Self-contained smoke test proving playwright-clj drives a real browser.
-   Run: clojure -M:test    (needs `clojure -M:install chromium` first)."
+   Run: kbb -M:test    (needs `kbb -M:install chromium` first)."
   (:require [playwright-clj.core :as pw]))
 
 (def ^:private page-html
