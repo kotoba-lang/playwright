@@ -5,7 +5,7 @@
    This file previously asserted only `(boolean? (pw/available?))`, which is true
    whichever way available? answers -- and true as well if it had been redefined
    to a constant. It could not fail, so it was not evidence of anything."
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [clojure.set :as set]
             [kami.playwright :as impl]
             [kotoba.playwright :as pw]))

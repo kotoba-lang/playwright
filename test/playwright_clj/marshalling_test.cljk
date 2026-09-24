@@ -9,7 +9,7 @@
    vector, so `(= {\"a\" [1 2]} java-map)` is true even when nothing was converted
    at all -- an `=`-only test here passes on an implementation that returns its
    input untouched. `map?` and `vector?` are what actually discriminate."
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [playwright-clj.core :as pw]))
 
 (def ^:private clj->gson #'pw/clj->gson)
