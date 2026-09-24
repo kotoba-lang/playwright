@@ -18,7 +18,7 @@
    which this repo already requires to reach a browser at all. Node's absence is
    asserted as its own failure below rather than quietly skipping the suite, so
    'did not run' can never be read off the output as 'passed'."
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [babashka.process :as p]
             [kami.playwright :as pw]))
 
