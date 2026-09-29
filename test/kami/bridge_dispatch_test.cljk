@@ -11,7 +11,7 @@
 
    If either failure path returned nil instead, a browser error and a bridge that
    was never installed would both look exactly like a successful eval that
-   returned nothing. That is the failure mode CLAUDE.md names: a check that could
+   returned nothing. That is the failure mode AGENTS.md names: a check that could
    not run returning the same value as a check that ran and found nothing wrong.
 
    No Playwright package and no chromium binary are needed here -- only node,
